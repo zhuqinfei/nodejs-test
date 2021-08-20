@@ -1,14 +1,10 @@
 <title>首页</title>
 <link rel="stylesheet" href="/style.css">
 <h5>你的账户余额是：<span id='amount'>&&&amount&&&</span></h5>
-<button id="button">付款1块钱</button>
-<script >
-  button.addEventListener('click',(e)=>{
-    let n=amount.innerText
-    let number = parseInt(n,10)
-    let newNumber=number-1
-    amount.innerText=newNumber
-  })
-</script>
+<form action="/pay" method='post' target="result">
+  <input type="submit" value='付款'>
+</form>
+<!-- 以前用iframe优化方式，现在很少用了 -->
+<iframe name="result" src="about:blank" frameborder="0"></iframe> 
 
 
