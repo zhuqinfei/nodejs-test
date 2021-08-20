@@ -15,7 +15,9 @@ var server = http.createServer(function(request, response){
   //从这里开始看，上面不要看
 
   if(path === '/'){  // 如果用户请求的是 / 路径
-    var string = fs.readFileSync('./index.html')  
+    var string = fs.readFileSync('./index.html','utf-8')
+    var amount = fs.readFileSync('./db','utf-8')  
+    string = string.replace('&&&amount&&&',amount)
     response.setHeader('Content-Type', 'text/html;charset=utf-8')  
     response.end(string)   
   }else if(path === '/style.css'){   
