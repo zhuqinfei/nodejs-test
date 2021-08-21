@@ -4,14 +4,18 @@
 <button id="button">付款</button>
 <script >
   button.addEventListener('click',(e)=>{
-   let image=document.createElement('img')
-   image.src='/pay'
-   image.onload=function(){  // 状态码是 200~299 则表示成功
-     alert('付款成功')
-     amount.innerText=amount.innerText-1 //数据库成功修改后，成功则页面同步修改
+   let script=document.createElement('script')
+   script.src='/pay'
+   document.body.appendChild(script)
+   script.onload=function(e){  //onload事件是在script事件执行完触发
+     e.currentTarget.remove()
    }
-   image.onerror=function(){  // 状态码大于等于 400 则表示失败
+  //  script.onload=function(){  *这部分由服务器中index.js执行*
+  //    amount.innerText=amount.innerText-1 
+  //  }
+   script.onerror=function(e){  // 状态码大于等于 400 则表示失败
      alert('付款失败')
+     e.currentTarget.remove()
    }
   })
 </script>
