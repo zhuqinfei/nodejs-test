@@ -2,30 +2,42 @@
 <link rel="stylesheet" href="/style.css">
 <h5>你的账户余额是：<span id='amount'>&&&amount&&&</span></h5>
 <button id="button">付款</button>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js'></script>
 <script >
+  //用jquery能快速实现fei.com访问jack.com
   button.addEventListener('click',(e)=>{
-   let script=document.createElement('script')
-   let functionName='fei'+parseInt(Math.random()*100000,10)
-   window[functionName]=function(result){
-    // alert('我是fei.com写的代码')
-    // alert(`我得到的结果是${result}`)
+    $.ajax({
+    url: "http://jack.com:8002/pay",
+    jsonp: "callback",
+    dataType: "jsonp",
+    success: function(result) {
       if(result === 'success'){
          amount.innerText=amount.innerText-1
-      }else{
+      }
+    }
+    });
+  //  let script=document.createElement('script')
+  //  let functionName='fei'+parseInt(Math.random()*100000,10)
+  //  window[functionName]=function(result){
+  //   // alert('我是fei.com写的代码')
+  //   // alert(`我得到的结果是${result}`)
+  //     if(result === 'success'){
+  //        amount.innerText=amount.innerText-1
+  //     }else{
 
-       }
-    }  
-   script.src='http://jack.com:8002/pay?callback='+functionName
-   document.body.appendChild(script)
-   script.onload=function(e){  //onload事件是在script事件执行完触发
-     e.currentTarget.remove()
-     delete window[functionName]
-   }
-   script.onerror=function(e){  // 状态码大于等于 400 则表示失败
-     alert('付款失败')
-     e.currentTarget.remove()
-     delete window[functionName]
-   }
+  //      }
+  //   }  
+  //  script.src='http://jack.com:8002/pay?callback='+functionName
+  //  document.body.appendChild(script)
+  //  script.onload=function(e){  //onload事件是在script事件执行完触发
+  //    e.currentTarget.remove()
+  //    delete window[functionName]
+  //  }
+  //  script.onerror=function(e){  // 状态码大于等于 400 则表示失败
+  //    alert('付款失败')
+  //    e.currentTarget.remove()
+  //    delete window[functionName]
+  //  }
   })
 </script>
 
